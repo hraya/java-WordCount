@@ -13,23 +13,43 @@ public class Main
 
         HashMap<String, Integer> freqHashMap = new HashMap<String, Integer>();
 
-        int hashCount = 0;
         for (String word : words)
         {
-            word.toLowerCase();
+
+            Integer count = freqHashMap.get(word);
+            if(count == null)
+            {
+                freqHashMap.put(word, 1);
+            }
+            else {
+                freqHashMap.put(word, count + 1);
+            }
 
         }
 
-        System.out.println(freqHashMap);
+//        System.out.println("freqHashMap" + freqHashMap);
 
         ArrayList<HashMap.Entry<String, Integer>> sortedStrings = new ArrayList<HashMap.Entry<String, Integer>>();
         sortedStrings.addAll(freqHashMap.entrySet());
-        System.out.println("sortedStrings" + sortedStrings);
+//        System.out.println("sortedStrings" + sortedStrings);
 
-        Collections.sort(sortedStrings, new Comparator<HashMap.Entry<String, Integer>>()
+        Collections.sort(sortedStrings, new Comparator<Map.Entry<String, Integer>>()
         {
-            public int compare(HashMap.Entry<String, Integer>)
-        })
+            public int compare(HashMap.Entry<String, Integer> o1, HashMap.Entry<String, Integer> o2)
+            {
+                return o2.getValue() - o1.getValue();
+            }
+        });
+
+//        System.out.println("sortedStrings2" + sortedStrings);
+        System.out.println("***** Top 50 *****");
+        for (int i = 0; i < 50 ; i++)
+        {
+            System.out.println("Word: " + sortedStrings.get(i).getKey() + " has a count of " + sortedStrings.get(i).getValue() );
+        }
+
+        System.out.println("***** Stretch Top 50 Alphabetically ***** ");
+
 
 
     }
